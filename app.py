@@ -8,6 +8,8 @@ app.config["SECRET_KEY"] = "APP_SECRET_KEY"
 user_db = "users.json"
 
 # Login Page
+
+
 @app.route('/', methods=["GET", "POST"])
 def login_page():
     # Get method request
@@ -36,7 +38,7 @@ def login_2fa():
 
     # Insert randomly generated secret_key into database if empty
     if secret_key == "":
-        secret_key = new_secret_key(session["user"])
+        secret_key = new_secret_key(session["user"])["secret_key"]
 
     # Generate new URI for Google Authenticator
     uri = CustomOTP.generate_uri(
@@ -67,6 +69,7 @@ def login_2fa():
             secret_key = session["user"]["secret_key"]
             uri = CustomOTP.generate_uri(
                 secret_key, session["user"]["username"], "KCGI_Information_Security")
+
             CustomOTP.generate_qr(uri, "static/qr.png")
 
             flash("New secret key generated", "warning")

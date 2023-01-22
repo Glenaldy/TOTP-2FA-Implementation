@@ -13,6 +13,7 @@ def generate_qr(uri, location):
 
 def verify(key, code):
     totp = pyotp.TOTP(key)
+    print(totp.now())
     return totp.verify(code)
 
 
