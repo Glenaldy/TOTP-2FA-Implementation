@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="KCGI Information Security Project"/>
+        <meta name="keywords" content=""/>
+        <meta name="author" content="Glenaldy Sebastian"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"/>
+        <title>Information Security KCGI</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+    </head>
+    <body>
+        <div class="jumbotron vertical-center">
+            <div class="d-flex align-items-center justify-content-center container">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+    </body>
+</html>

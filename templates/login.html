@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <form method="post" class="card" id="login-card">
+        <div class="card-header text-center"><h5>
+            KCGI Information Security, by Glenaldy<br/><br/>
+            Time-based One-Time Password Implementation</h5></div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="card-body alert-{{ category }}" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="form-group card-body">
+            <label for="username">Username</label>
+            <input class="form-control" type="text" name="username" required/>
+        </div>
+        <div class="form-group card-body">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" name="password" required/>
+        </div>
+        <div class="text-center card-footer">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+{% endblock content %}

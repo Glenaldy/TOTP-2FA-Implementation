@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row w-100">
+        <div class="col-6">
+            <form method="post" class="card card-2fa">
+                <div class="text-center card-body">
+                    <img src="{{ url_for('static', filename='qr.png')}}"
+                         alt="Google Authenticator QR Code"
+                         height="200"
+                         width="200"/>
+                </div>
+                <div class="form-group card-body">
+                    <label for="secret">Secret Token</label>
+                    <input type="text" class="form-control" value="{{ secret_key }}" readonly/>
+                </div>
+                <div class="text-center card-footer">
+                    <button type="submit" name="generate_secret" class="btn btn-primary">Generate new secret key</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <form method="post" class="card card-2fa">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="card-header alert alert-{{ category }}" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="card-header alert alert-{{ category }}" role="alert">Enter Time-based One-Time Password (TOTP)</div>
+                    {% endif %}
+                {% endwith %}
+                <div class="card-body">
+                    <h5 class="card-title">How to use</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li>Scan the QR code on Google authenticator to periodically generate new One-Time Password</li>
+                            <li>Generating new token will nulify the previous token</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="form-group card-body">
+                    <label for="otp">Generated OTP</label>
+                    <input type="hidden" name="secret" value="{{ secret_key }}" required />
+                    <input type="number" class="form-control" name="otp" required />
+                </div>
+                <div class="text-center card-footer">
+                    <button type="submit"
+                            name="authenticate_secret"
+                            class="btn btn-primary"
+                            value="{{ csrf_input }}">
+                        Authenticate User
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
